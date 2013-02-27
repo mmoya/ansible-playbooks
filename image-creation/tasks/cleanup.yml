@@ -1,0 +1,20 @@
+---
+- name: cleanup | sparse files
+  file: path=$item state=absent
+  with_fileglob:
+    - $imagedir/var/cache/apt/archives/*.deb
+    - $imagedir/var/cache/apt/archives/partial/*
+    - $imagedir/var/cache/debconf/*-old
+    - $imagedir/var/lib/apt/lists/*
+
+- name: cleanup | locales and home
+  file: path=$item state=absent
+  with_dirglob:
+    - $imagedir/usr/share/locale/*
+    - $imagedir/usr/share/man/??
+    - $imagedir/usr/share/man/??@*
+    - $imagedir/usr/share/man/??_*
+    - $imagedir/var/cache/man/??
+    - $imagedir/var/cache/man/??@*
+    - $imagedir/var/cache/man/??_*
+    - $imagedir/home/*

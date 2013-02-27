@@ -1,0 +1,7 @@
+---
+include_packages:
+  - lsb-release
+  - openssh-server
+  - python
+  - python-apt
+  - sudo

@@ -1,0 +1,7 @@
+[images-stage1]
+/var/tmp/squeeze-raw-amd64          suite=squeeze       arch=amd64
+/var/tmp/squeeze-raw-i386           suite=squeeze       arch=i386
+
+[images-stage2]
+/var/tmp/debian-6.0-64              baseimage=squeeze-raw-amd64.tar.gz
+/var/tmp/debian-6.0-32              baseimage=squeeze-raw-i386.tar.gz

@@ -1,0 +1,6 @@
+---
+- name: save | compress image and store
+  command: /bin/tar --numeric-owner -C "$imagedir" -cz -f "$storedir/$imagename" .
+
+- name: save | remove image dir
+  file: path=$imagedir state=absent

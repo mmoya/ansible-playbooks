@@ -1,0 +1,26 @@
+---
+- hosts: images-stage2
+  gather_facts: no
+  connection: local
+  vars_files:
+    - vars/include_packages.yml
+    - vars/exclude_packages.yml
+    - vars/setup.yml
+
+  tasks:
+    - include: tasks/setup.yml
+
+    - name: stage2 | unpack current image
+      command: /bin/tar -C "$imagedir" -xz -f "$storedir/$imagename"
+      register: current_image
+      ignore_errors: yes
+
+    - name: stage2 | unpack base image
+      command: /bin/tar -C "$imagedir" -xz -f "$storedir/$baseimage"
+      when_failed: $current_image
+
+    - include: tasks/stage2-chrooted.yml ansible_connection=chroot
+
+    - include: tasks/cleanup.yml
+
+    - include: tasks/save.yml

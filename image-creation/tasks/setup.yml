@@ -1,0 +1,12 @@
+---
+- name: setup | check running as root
+  shell: test `id -u` -eq 0
+
+- name: setup | check imagedir is not present
+  shell: test ! -e $imagedir
+
+- name: setup | create store directory
+  file: path=$storedir state=directory
+
+- name: setup | create imagedir directory
+  file: path=$imagedir state=directory

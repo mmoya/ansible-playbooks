@@ -1,0 +1,23 @@
+---
+- name: stage2 | get facts
+  action: setup
+
+- name: stage2 | update indexes
+  command: /usr/bin/apt-get update
+
+- name: stage2 | install include_packages
+  apt: pkg=$item state=latest
+  with_items: $include_packages
+
+- name: stage2 | remove exclude_packages
+  apt: pkg=$item state=absent
+  with_items: $exclude_packages
+
+- name: stage2 | install kernel
+  apt: pkg=linux-image-generic state=latest
+
+- name: stage2 | create grub folder
+  file: path=/boot/grub state=directory
+
+- name: stage2 | grub config
+  template: src=templates/menu.lst.j2 dest=/boot/grub/menu.lst

@@ -1,0 +1,9 @@
+default     0
+timeout     2
+{%- for i in range(2) %}
+
+title       {{ ansible_lsb.distribution }}{% if loop.index is even %} (Single-User){% endif %}
+root        (hd0,0)
+kernel      /vmlinuz root=/dev/vda ro{% if loop.index is even %} single{% endif %}
+initrd      /initrd.img
+{%- endfor %}

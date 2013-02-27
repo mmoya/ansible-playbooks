@@ -1,0 +1,22 @@
+---
+- hosts: images-stage1
+  gather_facts: no
+  connection: local
+  vars_files:
+    - vars/include_packages.yml
+    - vars/exclude_packages.yml
+    - vars/setup.yml
+
+  tasks:
+    - include: tasks/setup.yml
+
+    - name: stage1 | deboostrap
+      command: /usr/sbin/debootstrap
+               --arch=$arch
+               --include=$include_packages
+               --exclude=$exclude_packages
+               $suite $imagedir http://$mirror/debian
+
+    - include: tasks/cleanup.yml
+
+    - include: tasks/save.yml

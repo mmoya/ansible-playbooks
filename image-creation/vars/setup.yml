@@ -1,0 +1,5 @@
+storedir: /var/tmp/built-images
+mirror: mirrors.kernel.org
+
+imagedir: $inventory_hostname
+imagename: $PIPE(basename $imagedir).tar.gz
