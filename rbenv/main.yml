@@ -3,7 +3,7 @@
 
   vars:
     - rbenv_root: /usr/local/rbenv
-    - ruby_version: 1.9.3-p385
+    - ruby_version: 2.1.0
 
   tasks:
     - name: rbenv | install build depends
