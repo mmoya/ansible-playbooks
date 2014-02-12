@@ -1,3 +1,3 @@
-Some playbooks for [Ansible](http://ansible.cc/).
+Some playbooks for [Ansible](http://docs.ansible.com/).
 
 All content is licensed under GPLv3+ unless otherwise stated.
