@@ -36,19 +36,19 @@
     - name: rbenv | create temporary directory
       command: mktemp -d
       register: tempdir
-      when_failed: $rbuild_present
+      when: rbuild_present|failed
 
     - name: rbenv | clone ruby-build repo
       git: repo=git://github.com/sstephenson/ruby-build.git dest={{ tempdir.stdout }}/ruby-build
-      when_failed: $rbuild_present
+      when: rbuild_present|failed
 
     - name: rbenv | install ruby-build
       command: ./install.sh chdir={{ tempdir.stdout }}/ruby-build
-      when_failed: $rbuild_present
+      when: rbuild_present|failed
 
     - name: rbenv | remove temporary directory
       file: path={{ tempdir.stdout }} state=absent
-      when_failed: $rbuild_present
+      when: rbuild_present|failed
 
     - name: rbenv | check ruby {{ ruby_version }} installed
       shell: RBENV_ROOT={{ rbenv_root }} rbenv versions | grep {{ ruby_version }}
@@ -57,15 +57,15 @@
 
     - name: rbenv | install ruby {{ ruby_version }}
       shell: RBENV_ROOT={{ rbenv_root }} rbenv install {{ ruby_version }}
-      when_failed: $ruby_installed
+      when: ruby_installed|failed
 
     - name: rbenv | set global ruby {{ ruby_version }}
       shell: RBENV_ROOT={{ rbenv_root }} rbenv global {{ ruby_version }}
-      when_failed: $ruby_installed
+      when: ruby_installed|failed
 
     - name: rbenv | rehash
       shell: RBENV_ROOT={{ rbenv_root }} rbenv rehash
-      when_failed: $ruby_installed
+      when: ruby_installed|failed
 
     - name: rbenv | set gemrc
       copy: src=files/gemrc dest=/root/.gemrc owner=root group=root mode=0644
