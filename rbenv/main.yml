@@ -13,7 +13,7 @@
         - git
         - libcurl4-openssl-dev
         - libmysqlclient-dev
-        - libreadline5-dev
+        - libreadline-dev
         - libssl-dev
         - libxml2-dev
         - libxslt1-dev
